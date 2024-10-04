@@ -23,6 +23,10 @@ Route::post('convert-zawgyi-to-unicode', [FontController::class, 'convert'])->na
 
 Route::post('convert-series', [FontController::class, 'convertSeries'])->name('convert.series');
 Route::post('convert-publisher', [FontController::class, 'convertPublisher'])->name('convert.publisher');
+Route::post('convert-reader', [FontController::class, 'convertReader'])->name('convert.reader');
+Route::post('convert-category', [FontController::class, 'convertCategory'])->name('convert.category');
 
 Route::post('convert-mongo-series', [FontController::class, 'convertMongoSeries'])->name('convert.mongo.series');
 Route::post('convert--mongo-publisher', [FontController::class, 'convertMongoPublisher'])->name('convert.mongo.publisher');
+Route::post('convert-mongo-reader', [FontController::class, 'convertMongoReader'])->name('convert.mongo.reader');
+Route::post('convert-mongo-category', [FontController::class, 'convertMongoCategory'])->name('convert.mongo.category');

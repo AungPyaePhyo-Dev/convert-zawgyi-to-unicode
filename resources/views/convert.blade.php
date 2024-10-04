@@ -31,8 +31,18 @@
         @csrf
         <button type="submit">Convert Publisher</button>
     </form>
-
     <hr>
+    <form action="{{ route('convert.reader') }}" method="post">
+        @csrf
+        <button type="submit">Convert Readers</button>
+    </form>
+    <hr>
+    <form action="{{ route('convert.category') }}" method="post">
+        @csrf
+        <button type="submit">Convert Category</button>
+    </form>
+    <hr>
+
 
     <h3>Mongo Database</h3>
     <form action="{{ route('convert.mongo.series') }}" method="post">
@@ -43,6 +53,16 @@
     <form action="{{ route('convert.mongo.publisher') }}" method="post">
         @csrf
         <button type="submit">Convert Mongo Publisher</button>
+    </form>
+    <hr>
+    <form action="{{ route('convert.mongo.reader') }}" method="post">
+        @csrf
+        <button type="submit">Convert Mongo Readers</button>
+    </form>
+    <hr>
+    <form action="{{ route('convert.mongo.category') }}" method="post">
+        @csrf
+        <button type="submit">Convert Mongo Category</button>
     </form>
 
 </body>

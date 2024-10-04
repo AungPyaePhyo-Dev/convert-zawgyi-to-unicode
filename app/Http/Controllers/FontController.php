@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Font;
 use App\Models\Publisher;
+use App\Models\Reader;
 use App\Models\Series;
 use Illuminate\Http\Request;
 
@@ -53,6 +55,35 @@ class FontController extends Controller
         return redirect()->route('convert.index')->with('message', 'Successfully converted from zawgyi to unicode');
     }
 
+    public function convertReader() {
+        $fonts = \DB::table('readers')->where('unicode_status', 0)->get();
+        foreach($fonts as $font) {
+            $unicodeValue = tounicode($font->name);
+            if($font->name !== '') {
+                \DB::table('readers')->where('id', $font->id)->update([
+                    'unicode_name' => $unicodeValue,
+                    'unicode_status' => 1
+                ]);
+            }
+        }
+        return redirect()->route('convert.index')->with('message', 'Successfully converted from zawgyi to unicode');
+    }
+
+    public function convertCategory() {
+        $fonts = \DB::table('categories')->where('unicode_status', 0)->get();
+        foreach($fonts as $font) {
+            $unicodeValue = tounicode($font->name);
+            if($font->name !== '') {
+                \DB::table('categories')->where('id', $font->id)->update([
+                    'unicode_name' => $unicodeValue,
+                    'unicode_status' => 1
+                ]);
+            }
+        }
+        return redirect()->route('convert.index')->with('message', 'Successfully converted from zawgyi to unicode');
+    }
+    
+
     public function convertMongoSeries() {
         $series = Series::get();
         foreach($series as $font) {
@@ -72,6 +103,36 @@ class FontController extends Controller
             $unicodeValue = tounicode($font->name);
             if($font->name !== '') {
                 Publisher::where('_id', $font->_id)->update([
+                    'unicode_name' => $unicodeValue,
+                    'unicode_status' => 1,
+                    'image' => null,
+                    'summary' => ''
+                ]);
+            }
+        }
+        return redirect()->route('convert.index')->with('message', 'Successfully converted from zawgyi to unicode');
+    }
+
+    public function convertMongoReader() {
+        $readers = Reader::get();
+        foreach($readers as $font) {
+            $unicodeValue = tounicode($font->name);
+            if($font->name !== '') {
+                Reader::where('_id', $font->_id)->update([
+                    'unicode_name' => $unicodeValue,
+                    'unicode_status' => 1
+                ]);
+            }
+        }
+        return redirect()->route('convert.index')->with('message', 'Successfully converted from zawgyi to unicode');
+    }
+
+    public function convertMongoCategory() {
+        $readers = Category::get();
+        foreach($readers as $font) {
+            $unicodeValue = tounicode($font->name);
+            if($font->name !== '') {
+                Category::where('_id', $font->_id)->update([
                     'unicode_name' => $unicodeValue,
                     'unicode_status' => 1
                 ]);
